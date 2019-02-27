@@ -41,7 +41,8 @@
         formData.append('beneficiary', beneficiary );
   
         http.post( URL, formData )
-        .then( data => { 
+        .then( data => {
+         
             if( data == null ) {
              
                 options.push(`<option value="0">No Records...</option>`);
@@ -56,4 +57,4 @@
          
         })  
         .catch( err => console.error( err ) );
-})
+});
