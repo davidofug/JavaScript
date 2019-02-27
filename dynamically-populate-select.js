@@ -1,5 +1,10 @@
-/* Snippet from a friend wasn't working as expected */
- /* document.getElementById('beneficiary').addEventListener('change', e =>{
+/*
+* Snippet from a friend wasn't working as expected 
+* Primary framework: Laravel
+* You might want to swap http.post() with appropriate ajax or jqXHR object
+*/
+/*
+ document.getElementById('beneficiary').addEventListener('change', e =>{
         let beneficiary = e.target.value;
         let formData = new FormData();
         formData.append('beneficiary',beneficiary)
@@ -19,28 +24,36 @@
             document.getElementById("the_serviceline").appendChild(options);
         })    
         .catch( err => console.error(err) );
-}) */
+})
+ 
+* Solution
+* And his feedback
+*/
 
-//Solution
-//This helped him
-
- document.getElementById('beneficiary').addEventListener('change', e =>{
-        let beneficiary = e.target.value;
+ document.getElementById('beneficiary').addEventListener( 'change', event => {
+  
+        let beneficiary = event.target.value;
+  
         let formData = new FormData();
-let options = [];
-        formData.append('beneficiary',beneficiary)
-        http.post('/getServicelines',formData)
+  
+        let options = [];
+  
+        formData.append('beneficiary', beneficiary );
+  
+        http.post( URL, formData )
         .then( data => { 
-            if(data == null){
-options.push(`<option value="0">No Records...</option>`);
-            }else{
-                data.forEach( serviceline =>{
-
-options.push( `<option value="${serviceline.id}">${serviceline.serviceName}</option>` );
-
-                })
+            if( data == null ) {
+             
+                options.push(`<option value="0">No Records...</option>`);
+             
+            } else {
+                data.forEach( serviceline => {
+                    options.push( `<option value="${serviceline.id}">${serviceline.serviceName}</option>` );
+                });
             }
+         
             document.getElementById("the_serviceline").innerHTML = options;
-        })    
-        .catch( err => console.error(err) );
+         
+        })  
+        .catch( err => console.error( err ) );
 })
